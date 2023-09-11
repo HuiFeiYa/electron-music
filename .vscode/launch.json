@@ -2,6 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "launch by npm ",
+      "type": "node",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "dev"],
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+
+    {
       "name": "Debug Main Process",
       "type": "node",
       "request": "launch",

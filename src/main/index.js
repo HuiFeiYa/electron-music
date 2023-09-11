@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -25,14 +25,25 @@ function createWindow() {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
-
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+    console.log(1,process.env['ELECTRON_RENDERER_URL'])
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
+    console.log(2)
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  ipcMain.on('window-new', (e, data) => {
+    console.log(data)
+  })
+  ipcMain.on('setTitle', (e, data) => {
+    const child = new BrowserWindow({parent: mainWindow, modal: true})
+    child.loadURL('http://127.0.0.1:5174/')
+    child.show()
+    console.log('setTitle', data, child)
+  })
 }
 
 // This method will be called when Electron has finished
@@ -66,6 +77,7 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
