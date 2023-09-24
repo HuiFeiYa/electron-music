@@ -2,7 +2,12 @@ import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+  openWindow: (path) => {
+    console.log('path---', path)
+    ipcRenderer.send('openWindow', path)
+  }
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
@@ -11,7 +16,7 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
-    contextBridge.exposeInMainWorld('setTitle', (title) => ipcRenderer.send('setTitle', title))
+    // contextBridge.exposeInMainWorld('openWindow', (path) => ipcRenderer.send('openWindow', path))
   } catch (error) {
     console.error(error)
   }

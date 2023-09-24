@@ -75,12 +75,13 @@ class Background {
       console.log(1, process.env['ELECTRON_RENDERER_URL'])
       this.window.loadURL(process.env['ELECTRON_RENDERER_URL'])
     } else {
-      console.log(2, is.dev, process.env)
-      this.window.loadFile(join(__dirname, '../renderer/index.html'), {
+      const filePath = join(__dirname, '../renderer/index.html')
+      console.log(2, is.dev, filePath)
+      this.window.loadFile(filePath, {
         hash: 'home'
       })
     }
   }
 }
 
-new Background()
+export default new Background()

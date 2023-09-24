@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: '/createProject',
-    component: () => import('../components/createProject.vue')
+    component: () => import('../views/createProject.vue')
   }
 ]
 export const router = createRouter({
