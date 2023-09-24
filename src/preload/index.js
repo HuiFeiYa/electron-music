@@ -6,6 +6,9 @@ const api = {
   openWindow: (path) => {
     console.log('path---', path)
     ipcRenderer.send('openWindow', path)
+  },
+  resize: (type) => {
+    ipcRenderer.send('resize', type)
   }
 }
 
