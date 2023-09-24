@@ -1,15 +1,12 @@
 <script setup>
-import Versions from './components/Versions.vue'
-const openWindow = () => {
-  window.setTitle('标题2')
-}
 </script>
 
 <template>
-  <Versions></Versions>
-  <button @click="openWindow">打开弹框</button>
+       <router-link to="/">Go to Home</router-link>
+       <router-link to="/about">Go to About</router-link>
+              <button>创建项目</button>
+       <router-view></router-view>
 </template>
 
 <style lang="less">
-@import './assets/css/styles.less';
 </style>
