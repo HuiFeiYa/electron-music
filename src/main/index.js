@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
+// import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { initIpcMain } from './ipcMain'
 import clc from 'cli-color'
 const log = (text) => {
@@ -22,9 +22,10 @@ class Background {
       log('app ready event')
       initIpcMain()
       this.createWindow()
-      installExtension(VUEJS3_DEVTOOLS)
-        .then((name) => console.log(`Added Extension:  ${name}`))
-        .catch((err) => console.log('An error occurred: ', err))
+      // 导致问题 electron Failed to fetch extension, trying 4 more times，加载插件失败
+      // installExtension(VUEJS3_DEVTOOLS)
+      //   .then((name) => console.log(`Added Extension:  ${name}`))
+      //   .catch((err) => console.log('An error occurred: ', err))
     })
     // Set app user model id for windows
     electronApp.setAppUserModelId('com.electron')
@@ -49,7 +50,7 @@ class Background {
     const options = {
       width: 900,
       height: 670,
-      titleBarStyle: 'hiddenInset',
+      titleBarStyle: 'hidden', // 隐藏标题栏
       title: 'yun music',
       show: false,
       webPreferences: {
@@ -58,7 +59,8 @@ class Background {
         contextIsolation: false,
         preload: join(__dirname, '../preload/index.js'),
         sandbox: false
-      }
+      },
+      // frame: false
     }
     this.window = new BrowserWindow(options)
     this.window.on('ready-to-show', () => {

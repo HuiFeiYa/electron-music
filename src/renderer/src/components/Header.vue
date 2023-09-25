@@ -11,9 +11,13 @@ const handleResize = () => {
         window.api.resize('unmaximize')
     }
 }
+const handleMinimize = () => {
+  window.api.resize('minimize')
+}
 </script>
 
 <template>
+  <div class="drag"></div>
   <div class="header">
     <el-icon>
       <ArrowLeft />
@@ -24,10 +28,13 @@ const handleResize = () => {
     <el-input style="width: 200px" v-model="searchText" placeholder="搜索音乐" clearable />
 
     <div>
-      <el-icon>
+      <el-icon style="margin-right: 10px;">
         <ArrowDown />
       </el-icon>
-      <el-icon><Menu /></el-icon>
+      <el-icon style="margin-right: 10px;"><Menu /></el-icon>
+      <!-- 最小话 -->
+      <el-icon style="margin-right: 10px;" @click="handleMinimize"><SemiSelect /></el-icon>
+      <!-- 放大 -->
       <el-icon @click="handleResize"><Switch /></el-icon>
     </div>
   </div>
@@ -36,6 +43,9 @@ const handleResize = () => {
 .header {
   display: flex;
   align-items: center;
-  padding-top: 30px;
+}
+.drag {
+  -webkit-app-region: drag; // 允许拖拽 导致问题，子元素点击事件被吃掉
+  height: 10px;
 }
 </style>

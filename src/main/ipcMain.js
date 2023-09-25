@@ -19,6 +19,10 @@ export function initIpcMain() {
         window.unmaximize()
         break
       }
+      case 'minimize': {
+        window.minimize()
+        break;
+      }
     }
   })
 }
