@@ -4,6 +4,8 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 // import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { initIpcMain } from './ipcMain'
 import clc from 'cli-color'
+import { createMenu } from './menu'
+
 const log = (text) => {
   console.log(`${clc.blueBright('[background.js]')} ${text}`)
 }
@@ -29,7 +31,9 @@ class Background {
     })
     // Set app user model id for windows
     electronApp.setAppUserModelId('com.electron')
-
+    app.whenReady().then(()=> {
+      createMenu(this.window)
+    })
     // Default open or close DevTools by F12 in development
     // and ignore CommandOrControl + R in production.
     // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
@@ -50,7 +54,8 @@ class Background {
     const options = {
       width: 900,
       height: 670,
-      titleBarStyle: 'hidden', // 隐藏标题栏
+      // titleBarStyle: 'hidden', // 隐藏标题栏
+      // titleBarStyle: 'customButtonsOnHover',
       title: 'yun music',
       show: false,
       webPreferences: {
@@ -60,7 +65,6 @@ class Background {
         preload: join(__dirname, '../preload/index.js'),
         sandbox: false
       },
-      // frame: false
     }
     this.window = new BrowserWindow(options)
     this.window.on('ready-to-show', () => {
@@ -71,7 +75,7 @@ class Background {
       shell.openExternal(details.url)
       return { action: 'deny' }
     })
-    this.window.setMenuBarVisibility(false)
+    // this.window.setMenuBarVisibility(false) // 隐藏菜单
 
     if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
       console.log(1, process.env['ELECTRON_RENDERER_URL'])

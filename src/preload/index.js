@@ -9,6 +9,9 @@ const api = {
   },
   resize: (type) => {
     ipcRenderer.send('resize', type)
+  },
+  menuSetting: () => {
+    ipcRenderer.send('menu-setting')
   }
 }
 

@@ -14,6 +14,9 @@ const handleResize = () => {
 const handleMinimize = () => {
   window.api.resize('minimize')
 }
+const handleMenu = () => {
+  window.api.menuSetting()
+}
 </script>
 
 <template>
@@ -27,11 +30,28 @@ const handleMinimize = () => {
     </el-icon>
     <el-input style="width: 200px" v-model="searchText" placeholder="搜索音乐" clearable />
 
-    <div>
+    <div class="right">
       <el-icon style="margin-right: 10px;">
         <ArrowDown />
       </el-icon>
-      <el-icon style="margin-right: 10px;"><Menu /></el-icon>
+      <el-menu  mode="horizontal">
+        <el-sub-menu>
+          <template  #title>
+            <el-icon style="margin-right: 10px;" @click="handleMenu"><Menu /></el-icon>
+          </template>
+          <el-menu-item index="1-1">
+            添加歌曲
+          </el-menu-item>
+          <el-menu-item index="1-2">
+            升级
+          </el-menu-item>
+        </el-sub-menu>
+        <el-sub-menu>
+          <el-menu-item index="1-2">
+            item two
+          </el-menu-item>
+        </el-sub-menu>
+      </el-menu>
       <!-- 最小话 -->
       <el-icon style="margin-right: 10px;" @click="handleMinimize"><SemiSelect /></el-icon>
       <!-- 放大 -->
@@ -47,5 +67,8 @@ const handleMinimize = () => {
 .drag {
   -webkit-app-region: drag; // 允许拖拽 导致问题，子元素点击事件被吃掉
   height: 10px;
+}
+.right {
+  display: flex;
 }
 </style>
