@@ -6,7 +6,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
     '@electron-toolkit',
-    '@vue/eslint-config-prettier'
   ],
   rules: {
     'vue/require-default-prop': 'off',

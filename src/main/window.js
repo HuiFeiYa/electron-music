@@ -1,7 +1,18 @@
 import { BrowserWindow } from 'electron'
 import { is } from '@electron-toolkit/utils'
 import { join } from 'path'
-export const createWindow = (parent, path) => {
+
+class WindowManager {
+  constructor() {
+    this.windowMap = new Map()
+  }
+  add(key, window) {
+    this.windowMap.set(key, window)
+  }
+}
+export const windowManager = new WindowManager()
+
+export const createWindow = (parent, path, name) => {
   const options = {
     parent,
     width: 300,
@@ -18,6 +29,7 @@ export const createWindow = (parent, path) => {
     }
   }
   const win = new BrowserWindow(options)
+  windowManager.add(name, win)
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     const url = process.env['ELECTRON_RENDERER_URL'] + '/#/' + path
     console.log(1, url)

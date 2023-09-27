@@ -1,6 +1,7 @@
-import { app, shell, BrowserWindow, globalShortcut } from 'electron'
+import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import { windowManager } from './window'
 // import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { initIpcMain } from './ipcMain'
 import clc from 'cli-color'
@@ -74,6 +75,8 @@ class Background {
       },
     }
     this.window = new BrowserWindow(options)
+    windowManager.add('mainWindow', this.window)
+    windowManager
     this.window.on('ready-to-show', () => {
       this.window.show()
     })
