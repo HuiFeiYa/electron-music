@@ -12,6 +12,9 @@ const api = {
   },
   menuSetting: () => {
     ipcRenderer.send('menu-setting')
+  },
+  login: () => {
+    ipcRenderer.send('login')
   }
 }
 

@@ -36,4 +36,8 @@ export function initIpcMain() {
     const window = background.window
     createMenu(window)
   })
+
+  ipcMain.on('login', () => {
+    createWindow(background.window, 'login')
+  })
 }

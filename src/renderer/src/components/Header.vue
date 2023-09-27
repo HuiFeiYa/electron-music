@@ -17,6 +17,9 @@ const handleMinimize = () => {
 const handleMenu = () => {
   window.api.menuSetting()
 }
+const handleLogin = () => {
+  window.api.login()
+}
 </script>
 
 <template>
@@ -31,10 +34,28 @@ const handleMenu = () => {
     <el-input style="width: 200px" v-model="searchText" placeholder="搜索音乐" clearable />
 
     <div class="right">
+      <el-icon style="margin-right: 10px;" @click="handleLogin"><User /></el-icon>
       <el-icon style="margin-right: 10px;">
         <ArrowDown />
       </el-icon>
-      <el-menu  mode="horizontal">
+      <el-popover
+        placement="bottom"
+        title="Title"
+        :width="200"
+        trigger="click"
+      >
+        <template #reference>
+          <el-icon style="margin-right: 10px;" @click="handleMenu"><Menu /></el-icon>
+        </template>
+        <slot  name="content">
+          <div>
+            <div>1</div>
+            <div>2</div>
+          </div>
+        </slot>
+
+      </el-popover>
+      <!-- <el-menu  mode="horizontal">
         <el-sub-menu>
           <template  #title>
             <el-icon style="margin-right: 10px;" @click="handleMenu"><Menu /></el-icon>
@@ -51,7 +72,7 @@ const handleMenu = () => {
             item two
           </el-menu-item>
         </el-sub-menu>
-      </el-menu>
+      </el-menu> -->
       <!-- 最小话 -->
       <el-icon style="margin-right: 10px;" @click="handleMinimize"><SemiSelect /></el-icon>
       <!-- 放大 -->

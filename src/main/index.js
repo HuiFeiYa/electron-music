@@ -1,10 +1,10 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 // import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 import { initIpcMain } from './ipcMain'
 import clc from 'cli-color'
-import { createMenu } from './menu'
+// import { createMenu } from './menu'
 
 const log = (text) => {
   console.log(`${clc.blueBright('[background.js]')} ${text}`)
@@ -24,6 +24,7 @@ class Background {
       log('app ready event')
       initIpcMain()
       this.createWindow()
+      this.registerShortcut()
       // 导致问题 electron Failed to fetch extension, trying 4 more times，加载插件失败
       // installExtension(VUEJS3_DEVTOOLS)
       //   .then((name) => console.log(`Added Extension:  ${name}`))
@@ -31,9 +32,10 @@ class Background {
     })
     // Set app user model id for windows
     electronApp.setAppUserModelId('com.electron')
-    app.whenReady().then(()=> {
-      createMenu(this.window)
-    })
+    /** 导致无法打开控制台 */
+    // app.whenReady().then(()=> {
+      // createMenu(this.window)
+    // })
     // Default open or close DevTools by F12 in development
     // and ignore CommandOrControl + R in production.
     // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
@@ -48,6 +50,11 @@ class Background {
         app.quit()
       }
     })
+  }
+  registerShortcut() {
+    // globalShortcut.register('CommandOrControl+Shift+i', function() {
+    //   // this.window.webContents.openDevTools()
+    // })
   }
   createWindow() {
     log('creating app window')

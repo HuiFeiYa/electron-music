@@ -19,8 +19,9 @@ export const createWindow = (parent, path) => {
   }
   const win = new BrowserWindow(options)
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    console.log(1, process.env['ELECTRON_RENDERER_URL'])
-    win.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    const url = process.env['ELECTRON_RENDERER_URL'] + '/#/' + path
+    console.log(1, url)
+    win.loadURL(url)
   } else {
     const filePath = join(__dirname, '../renderer/index.html')
     console.log(2, is.dev, filePath)
