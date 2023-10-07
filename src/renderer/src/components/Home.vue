@@ -4,5 +4,7 @@ import Header from '@renderer/components/Header.vue'
 
 <template>
         <Header />
+    <img src='../assets/icons/arrow-down.svg'/>
+
     home
 </template>
