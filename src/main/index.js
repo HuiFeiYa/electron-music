@@ -62,10 +62,12 @@ class Background {
     const options = {
       width: 900,
       height: 670,
+      frame: false, 
       // titleBarStyle: 'hidden', // 隐藏标题栏
       // titleBarStyle: 'customButtonsOnHover',
       title: 'yun music',
       show: false,
+      
       webPreferences: {
         nodeIntegration: true,
         enableRemoteModule: true,

@@ -1,10 +1,10 @@
 <script setup>
-import Header from '@renderer/components/Header.vue'
+import Navbar from '@renderer/components/Navbar.vue'
 </script>
 
 <template>
-        <Header />
-    <img src='../assets/icons/arrow-down.svg'/>
+        <Navbar />
+    <!-- <img src='../assets/icons/arrow-down.svg'/>
 
-    home
+    home -->
 </template>
