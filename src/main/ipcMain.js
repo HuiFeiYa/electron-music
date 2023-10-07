@@ -13,6 +13,7 @@ export function initIpcMain() {
     console.log('type', type)
     if (window.isMaximized()) { // 是否为最大化
       window.restore()
+      window.webContents.send('isMaximized', window.isMaximized())
       return 
     }
     switch (type) {
@@ -29,6 +30,7 @@ export function initIpcMain() {
         break;
       }
     }
+    window.webContents.send('isMaximized', window.isMaximized())
   })
 
   ipcMain.on('menu-setting', () => {

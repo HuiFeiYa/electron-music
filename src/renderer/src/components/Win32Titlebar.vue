@@ -2,6 +2,19 @@
     import {ref} from 'vue'
     const isMaximized = ref(false)
     const title = ref('云音乐')
+    function windowMinimize() {
+      window.api.resize('minimize');
+    }
+    function windowMaxRestore() {
+      window.api.resize('maximize');
+    }
+    function windowClose() {
+      console.log('关闭');
+    }
+    window.ipcRenderer.on('isMaximized', (_, value)=> {
+        console.log(_,value)
+        isMaximized.value = value
+    })
 </script>
 <template>
   <div class="win32-titlebar">
@@ -23,7 +36,8 @@
         }"
         @click="windowMaxRestore"
       >
-    最大化
+      {{ isMaximized ? '还原': '最大化' }}
+     
     </div>
       <div
         class="button close codicon codicon-chrome-close"
