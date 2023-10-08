@@ -20,6 +20,10 @@ const routes = [
   {
     path: '/explore',
     component: () => import('../views/explore.vue')
+  },
+  {
+    path: '/library',
+    component: () => import('../views/library.vue')
   }
 ]
 export const router = createRouter({

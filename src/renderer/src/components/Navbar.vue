@@ -1,12 +1,22 @@
 <script setup>
 import Win32Titlebar from './Win32Titlebar.vue';
+import { useRouter } from 'vue-router'
+import { computed, ref } from 'vue'
+const router = useRouter()
+const historyState = ref(history.state)
+const canGoForward = computed(() => !!historyState.value.forward)
+const canGoBack = computed(() => !!historyState.value.back)
+window.addEventListener('popstate',(event) => {
+  console.log('event', event.state);
+  historyState.value = event.state
+})
 </script>
 <template>
   <nav class="has-custom-titlebar">
     <Win32Titlebar />
     <div class="navigation-buttons">
-        <img class='icon' src="../assets/icons/arrow-left.svg"  @click="go('back')">
-        <img class='icon' src="../assets/icons/arrow-right.svg"  @click="go('forward')">
+        <img class='icon' :class="{'disabled': !canGoBack}" src="../assets/icons/arrow-left.svg"  @click="router.go(-1)">
+        <img class='icon' :class="{'disabled': !canGoForward}" src="../assets/icons/arrow-right.svg"  @click="router.go(1)">
     </div>
     <div class="navigation-links">
         <router-link to="/" :class="{ active: $route.name === 'home' }">首页</router-link>
@@ -24,6 +34,10 @@ import Win32Titlebar from './Win32Titlebar.vue';
     </nav>
 </template>
 <style>
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
 .icon {
     width: 24px;
     height: 24px;

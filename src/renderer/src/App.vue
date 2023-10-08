@@ -28,7 +28,7 @@ main {
 
 @media (max-width: 1336px) {
   main {
-    padding: 64px 5vw 96px 5vw;
+    padding: 80px 5vw 96px 5vw;
   }
 }
 
